@@ -2020,8 +2020,8 @@ async function sendMessage(e){
     //   {{message}}    → their congratulation text
     //   {{reply_to}}   → optional, set to empty string
     await emailjs.send(
-      window._ejsConfig.serviceId,
-      window._ejsConfig.templateId,
+      window._ejsConfig.service_m88v146,
+      window._ejsConfig.template_35b08pf,
       {
         from_name: nameVal,
         message:   textVal,
@@ -2031,7 +2031,7 @@ async function sendMessage(e){
 
     // ── SUCCESS ──
     submitBtn.classList.remove('sending');
-    submitBtn.textContent = '✦ أرسل تهنئتك ✦';
+    submitBtn.textContent = ' أرسل تهنئتك ';
     document.getElementById('congrats-form').reset();
     showFeedback('success', '🌸',
       'شكراً جزيلاً على تهنئتك الرقيقة<br>' +
