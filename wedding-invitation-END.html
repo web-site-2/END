@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>يوسف & حبيبة — دعوة الزفاف</title>
+<!-- ═══════════════════════════════════════════════════════════════
+     EmailJS SDK — loads the email sending library from CDN
+     No backend needed. Works entirely in the browser.
+     ═══════════════════════════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Aref+Ruqaa:wght@400;700&family=Rakkas&display=swap" rel="stylesheet">
+<style>
+:root {
+  --warm-white: #fdfaf6;
+  --cream: #f5ede0;
+  --blush: #e8c4b8;
+  --blush-light: #f0d8d0;
+  --champagne: #c9a96e;
+  --champagne-light: #e2c898;
+  --champagne-dark: #9e7c4a;
+  --beige: #ede0cc;
+  --text-dark: #3a2d22;
+  --text-mid: #6b5344;
+  --text-soft: #9c7e6a;
+  --shadow-soft: rgba(180,140,100,0.12);
+  --shadow-gold: rgba(180,140,80,0.18);
+  --glow-blush: rgba(232,196,184,0.3);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Amiri', serif;
+  background: var(--warm-white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  direction: rtl;
+}
+
+/* =====================================================================
+   ██████╗ ███████╗██╗   ██╗    ███╗   ██╗ ██████╗ ████████╗███████╗███████╗
+   ██╔══██╗██╔════╝██║   ██║    ████╗  ██║██╔═══██╗╚══██╔══╝██╔════╝██╔════╝
+   ██║  ██║█████╗  ██║   ██║    ██╔██╗ ██║██║   ██║   ██║   █████╗  ███████╗
+   ██║  ██║██╔══╝  ╚██╗ ██╔╝    ██║╚██╗██║██║   ██║   ██║   ██╔══╝  ╚════██║
+   ██████╔╝███████╗ ╚████╔╝     ██║ ╚████║╚██████╔╝   ██║   ███████╗███████║
+   ╚═════╝ ╚══════╝  ╚═══╝      ╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝
+   =====================================================================
+   
+   HOW TO CHANGE IMAGES
+   ─────────────────────────────────────────────────────────────────────
+   FOLDER STRUCTURE:
+     Place all your image files inside this folder next to the HTML file:
+       assets/
+         images/
+           couple.jpg          ← Main couple photo
+           gallery-1.jpg       ← Gallery image 1
+           gallery-2.jpg       ← Gallery image 2
+           gallery-3.jpg       ← Gallery image 3
+           gallery-4.jpg       ← Gallery image 4
+   
+   HOW TO REPLACE THE COUPLE PHOTO:
+     Find this line in the HTML (inside #couple section):
+       <img src="https://images.unsplash.com/..." alt="صورة العروسين" ...>
+     Replace the src with your file path:
+       <img src="assets/images/couple.jpg" alt="صورة العروسين" ...>
+   
+   HOW TO REPLACE GALLERY IMAGES:
+     Find the 4 <img> tags inside the .gallery-grid div.
+     Replace each src one by one:
+       <img src="assets/images/gallery-1.jpg" ...>
+       <img src="assets/images/gallery-2.jpg" ...>
+       <img src="assets/images/gallery-3.jpg" ...>
+       <img src="assets/images/gallery-4.jpg" ...>
+   
+   HOW TO REPLACE BACKGROUND IMAGES (if added in future):
+     Add a background-image CSS property to any section, for example:
+       #couple { background-image: url('assets/images/bg.jpg'); }
+   
+   ─────────────────────────────────────────────────────────────────────
+   HOW TO CHANGE MUSIC
+   ─────────────────────────────────────────────────────────────────────
+   FOLDER STRUCTURE:
+     Place your audio file here next to the HTML file:
+       assets/
+         music/
+           wedding-song.mp3    ← Your music file (MP3 recommended)
+   
+   HOW TO REPLACE THE MUSIC:
+     Find this line in the HTML (just after the opening <body> tag):
+       <source src="https://www.bensound.com/.../bensound-romanticsnight.mp3" type="audio/mpeg">
+     Replace it with your local file:
+       <source src="assets/music/wedding-song.mp3" type="audio/mpeg">
+   
+   TIP: Use MP3 format for best browser compatibility.
+        Recommended audio length: 3-5 minutes, set to loop automatically.
+   ===================================================================== */
+
+/* ===== RAKKAS FONT — for "يوسف ✦ حبيبة" name displays ===== */
+/* Applied to: header-names, landing-names, footer-names, couple-name */
+.rakkas-name {
+  font-family: 'Rakkas', serif !important;
+  font-weight: 400 !important;
+  text-align: center;
+  unicode-bidi: plaintext;
+  direction: rtl;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--champagne); border-radius: 10px; }
+
+/* ===== LANDING SCREEN ===== */
+#landing {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--warm-white);
+  overflow: hidden;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
+}
+
+#landing.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50% 0 50% 0;
+  background: var(--blush);
+  opacity: 0;
+  animation: petalFall linear infinite;
+}
+
+@keyframes petalFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+.landing-card {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 56px 48px;
+  background: rgba(255,252,248,0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px var(--shadow-gold), 0 0 0 1px rgba(255,255,255,0.6) inset;
+  max-width: 440px;
+  width: 90%;
+  animation: cardEntrance 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+@keyframes cardEntrance {
+  0% { opacity:0; transform: translateY(30px) scale(0.96); }
+  100% { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.landing-ornament {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--champagne);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.landing-names {
+  font-family: 'Aref Ruqaa', serif;
+  font-size: clamp(2.6rem, 9vw, 3.8rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: 3px;
+  word-spacing: 8px;
+}
+
+.landing-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
+  color: var(--text-soft);
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+.landing-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto 32px;
+  max-width: 200px;
+}
+
+.landing-divider::before,
+.landing-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--champagne), transparent);
+}
+
+.landing-divider-icon {
+  color: var(--champagne);
+  font-size: 16px;
+}
+
+.open-btn {
+  display: inline-block;
+  padding: 16px 44px;
+  background: linear-gradient(135deg, var(--champagne-light), var(--champagne), var(--champagne-dark));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Amiri', serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(180,140,80,0.35);
+  transition: all 0.4s ease;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.open-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  border-radius: 50px;
+}
+
+.open-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(180,140,80,0.45);
+}
+
+.open-btn:active { transform: translateY(0); }
+
+/* ===== MAIN CONTENT ===== */
+#main-content {
+  opacity: 0;
+  transition: opacity 1s ease 0.4s;
+}
+
+#main-content.visible { opacity: 1; }
+
+/* ===== SECTION COMMON ===== */
+section {
+  padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 60px);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  text-align: center;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.gold-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--champagne), transparent);
+  margin: 0 auto 48px;
+}
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ===== HEADER BAND ===== */
+.site-header {
+  text-align: center;
+  padding: 48px 20px 24px;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+}
+
+.header-names {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
+  color: var(--text-dark);
+  letter-spacing: 3px;
+}
+
+.header-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 1rem;
+  margin-top: 6px;
+}
+
+/* ===== COUPLE SECTION ===== */
+#couple {
+  text-align: center;
+}
+
+.couple-photo-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+
+.couple-photo-frame {
+  width: clamp(260px, 70vw, 380px);
+  height: clamp(320px, 85vw, 480px);
+  border-radius: 50% 50% 48% 48% / 40% 40% 60% 60%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 60px var(--shadow-gold), 0 0 0 1px rgba(201,169,110,0.2);
+  background: linear-gradient(135deg, var(--cream), var(--blush-light));
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.couple-photo-frame:hover {
+  transform: scale(1.02);
+  box-shadow: 0 28px 80px var(--shadow-gold);
+}
+
+.couple-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.couple-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--blush-light) 0%, var(--beige) 50%, var(--blush-light) 100%);
+  color: var(--text-soft);
+  font-size: 14px;
+  gap: 12px;
+}
+
+.couple-photo-placeholder .ph-icon { font-size: 48px; opacity: 0.4; }
+.couple-photo-placeholder .ph-text { font-family: 'Cormorant Garamond',serif; font-style:italic; opacity:0.7; }
+
+.photo-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--champagne-light), transparent, var(--blush));
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* Instagram-style tag */
+.ig-tag {
+  position: absolute;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(201,169,110,0.3);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  color: var(--text-dark);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.85) translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ig-tag::before {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.95);
+  border-right: 1px solid rgba(201,169,110,0.3);
+  border-bottom: 1px solid rgba(201,169,110,0.3);
+  transform: rotate(45deg);
+}
+
+.ig-tag.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.ig-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--champagne-light), var(--blush));
+}
+
+#tag-groom { top: 20%; right: -140px; }
+#tag-bride  { top: 60%; right: -150px; }
+
+@media (max-width: 600px) {
+  #tag-groom { top: 15%; right: 10px; }
+  #tag-bride  { top: 55%; right: 10px; }
+  .ig-tag::before { display: none; }
+}
+
+.click-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.couple-name {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.couple-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
+  color: var(--champagne-dark);
+  letter-spacing: 2px;
+}
+
+/* ===== COUNTDOWN ===== */
+#countdown {
+  text-align: center;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+  border-radius: 32px;
+  max-width: 900px;
+}
+
+.countdown-grid {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.count-card {
+  background: rgba(255,252,248,0.9);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 20px;
+  padding: 28px 24px 20px;
+  min-width: 90px;
+  box-shadow: 0 8px 32px var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.count-card:hover { transform: translateY(-4px); }
+
+.count-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blush), var(--champagne), var(--blush));
+}
+
+.count-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 600;
+  color: var(--champagne-dark);
+  line-height: 1;
+  margin-bottom: 8px;
+  transition: transform 0.2s ease;
+}
+
+.count-num.flip {
+  animation: numFlip 0.3s ease;
+}
+
+@keyframes numFlip {
+  0% { transform: scaleY(1); }
+  50% { transform: scaleY(0.6); opacity: 0.5; }
+  100% { transform: scaleY(1); }
+}
+
+.count-label {
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  color: var(--text-soft);
+  letter-spacing: 1px;
+}
+
+.notif-btn {
+  margin-top: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1px solid rgba(201,169,110,0.4);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--champagne-dark);
+  font-family: 'Amiri', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.notif-btn:hover {
+  background: var(--champagne);
+  color: #fff;
+  border-color: var(--champagne);
+}
+
+.notif-subtitle {
+  margin-top: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  opacity: 0.75;
+  letter-spacing: 0.5px;
+}
+
+.notif-bell-icon {
+  display: flex;
+  align-items: center;
+  animation: bellRing 0s ease;
+}
+
+.notif-btn.granted .notif-bell-icon {
+  animation: bellRing 0.5s ease;
+}
+
+@keyframes bellRing {
+  0%,100% { transform: rotate(0); }
+  20% { transform: rotate(-18deg); }
+  40% { transform: rotate(18deg); }
+  60% { transform: rotate(-10deg); }
+  80% { transform: rotate(10deg); }
+}
+
+/* ===== STORY ===== */
+#story { text-align: center; }
+
+.story-card {
+  background: linear-gradient(135deg, rgba(255,252,248,0.97), rgba(245,237,224,0.92));
+  border: 1px solid rgba(201,169,110,0.18);
+  border-radius: 28px;
+  padding: clamp(32px, 6vw, 56px);
+  box-shadow: 0 12px 48px var(--shadow-soft);
+  text-align: right;
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.story-card::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  right: 24px;
+  font-size: 160px;
+  font-family: 'Playfair Display', serif;
+  color: var(--champagne);
+  opacity: 0.08;
+  line-height: 1;
+  pointer-events: none;
+}
+
+#scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  z-index: 2;
+  touch-action: none;
+  transition: opacity 0.6s ease;
+}
+
+.story-text {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.05rem, 3vw, 1.2rem);
+  line-height: 2.1;
+  color: var(--text-mid);
+  position: relative;
+  z-index: 1;
+}
+
+.scratch-hint {
+  margin-top: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+}
+
+/* ===== EVENT DETAILS ===== */
+#events { max-width: 900px; }
+.events-title { text-align: center; }
+
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .events-grid { grid-template-columns: 1fr; }
+}
+
+.event-card {
+  background: rgba(255,252,248,0.9);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 24px;
+  padding: 32px 28px;
+  box-shadow: 0 8px 36px var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px var(--shadow-gold);
+}
+
+.event-day-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--champagne-light), var(--champagne));
+  color: #fff;
+  font-family: 'Amiri', serif;
+  font-size: 13px;
+  padding: 6px 18px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.event-card h3 {
+  font-family: 'Amiri', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.event-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.event-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blush-light), var(--cream));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  border: 1px solid rgba(201,169,110,0.2);
+}
+
+.event-detail-text {
+  font-family: 'Amiri', serif;
+  font-size: 1rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  text-align: right;
+}
+
+.event-detail-text strong {
+  display: block;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+  color: var(--champagne-dark);
+}
+
+.map-embed {
+  width: 100%;
+  height: 180px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 20px;
+  border: 1px solid rgba(201,169,110,0.15);
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.map-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid rgba(201,169,110,0.35);
+  border-radius: 50px;
+  color: var(--champagne-dark);
+  font-family: 'Amiri', serif;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: transparent;
+  cursor: pointer;
+}
+
+.map-btn:hover {
+  background: var(--champagne);
+  color: #fff;
+  border-color: var(--champagne);
+}
+
+/* ===== GALLERY ===== */
+#gallery { text-align: center; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.gallery-item {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, var(--blush-light), var(--beige));
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 6px 24px var(--shadow-soft);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 16px 40px var(--shadow-gold);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.08); }
+
+.gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--blush-light), var(--beige), var(--cream));
+  color: var(--text-soft);
+  gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.gallery-placeholder-icon { font-size: 28px; opacity: 0.35; }
+
+/* ===== MESSAGE SECTION ===== */
+#message { text-align: center; }
+
+.message-card {
+  background: rgba(255,252,248,0.9);
+  border: 1px solid rgba(201,169,110,0.18);
+  border-radius: 28px;
+  padding: clamp(32px, 6vw, 52px);
+  box-shadow: 0 12px 48px var(--shadow-soft);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.form-label {
+  display: block;
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 14px;
+  background: rgba(253,250,246,0.8);
+  font-family: 'Amiri', serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  text-align: right;
+  direction: rtl;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--champagne);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--champagne-light), var(--champagne), var(--champagne-dark));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Amiri', serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(180,140,80,0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(180,140,80,0.4);
+}
+
+/* ─── FORM FEEDBACK MESSAGES ─── */
+.form-feedback {
+  display: none;
+  padding: 20px 24px;
+  border-radius: 16px;
+  font-family: 'Amiri', serif;
+  font-size: 1.05rem;
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeInUp 0.5s ease;
+  line-height: 1.7;
+}
+
+/* Success state */
+.form-feedback.success {
+  background: linear-gradient(135deg, rgba(232,196,184,0.35), rgba(237,224,204,0.35));
+  border: 1px solid rgba(201,169,110,0.3);
+  color: var(--champagne-dark);
+}
+
+/* Error state */
+.form-feedback.error {
+  background: linear-gradient(135deg, rgba(232,184,184,0.25), rgba(245,237,224,0.25));
+  border: 1px solid rgba(180,100,100,0.25);
+  color: #9e5a4a;
+}
+
+/* Loading state — button shimmer */
+.submit-btn.sending {
+  opacity: 0.75;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.submit-btn.sending::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.2s linear infinite;
+  border-radius: 50px;
+}
+
+@keyframes shimmerSlide {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Success checkmark pulse */
+.feedback-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 8px;
+  animation: iconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+@keyframes iconPop {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Keep legacy id for backwards compat */
+#success-msg {
+  display: none;
+}
+
+
+/* ===== QR SECTION ===== */
+#qrcode { text-align: center; }
+
+.qr-card {
+  display: inline-block;
+  background: rgba(255,252,248,0.9);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 28px;
+  padding: 40px;
+  box-shadow: 0 12px 48px var(--shadow-soft);
+}
+
+#qr-canvas {
+  display: block;
+  margin: 0 auto 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px var(--shadow-soft);
+}
+
+.qr-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.download-qr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1px solid rgba(201,169,110,0.4);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--champagne-dark);
+  font-family: 'Amiri', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.download-qr-btn:hover {
+  background: var(--champagne);
+  color: #fff;
+  border-color: var(--champagne);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 48px 20px;
+  background: linear-gradient(180deg, var(--warm-white), var(--cream));
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+
+footer .footer-names {
+  font-family: 'Amiri', serif;
+  font-size: 1.4rem;
+  color: var(--champagne-dark);
+  margin-bottom: 8px;
+  font-style: normal;
+}
+
+/* ===== MUSIC BUTTON — GLASSMORPHISM ===== */
+#music-btn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(253,250,246,0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(201,169,110,0.35);
+  box-shadow: 0 8px 32px rgba(180,140,80,0.22), 0 0 0 1px rgba(255,255,255,0.55) inset;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+  flex-direction: column;
+  gap: 0;
+}
+
+#music-btn.show { display: flex; }
+
+#music-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 14px 44px rgba(180,140,80,0.35), 0 0 0 1px rgba(255,255,255,0.7) inset;
+}
+
+#music-btn:active { transform: scale(0.96); }
+
+.music-btn-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,169,110,0.22);
+  animation: ringPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ringPulse {
+  0%,100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.12); opacity: 0; }
+}
+
+.music-btn-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--champagne-dark);
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+#music-btn.playing .music-btn-inner { color: var(--champagne); }
+
+/* Animated bars (shown when playing) */
+.music-bars {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  gap: 2px;
+  align-items: flex-end;
+  height: 10px;
+}
+
+#music-btn.playing .music-bars { display: flex; }
+
+.music-bars span {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--champagne-light), var(--champagne-dark));
+  animation: barDance 0.8s ease-in-out infinite alternate;
+}
+
+.music-bars span:nth-child(1) { height: 5px; animation-delay: 0s; }
+.music-bars span:nth-child(2) { height: 9px; animation-delay: 0.15s; }
+.music-bars span:nth-child(3) { height: 7px; animation-delay: 0.3s; }
+.music-bars span:nth-child(4) { height: 4px; animation-delay: 0.45s; }
+
+@keyframes barDance {
+  from { transform: scaleY(0.4); opacity: 0.6; }
+  to   { transform: scaleY(1);   opacity: 1; }
+}
+
+/* ===== SECTION SEPARATOR ===== */
+.sep {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, var(--champagne), transparent);
+  margin: 0 auto;
+}
+
+/* ===== SCROLL TO TOP ===== */
+#scroll-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,252,248,0.9);
+  border: 1px solid rgba(201,169,110,0.3);
+  box-shadow: 0 6px 20px var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--champagne-dark);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+#scroll-top.show { opacity: 1; transform: translateY(0); }
+#scroll-top:hover { background: var(--champagne); color: #fff; }
+
+</style>
+</head>
+<body>
+
+<!-- ===== LANDING ===== -->
+<div id="landing">
+  <div class="landing-bg" id="petal-container"></div>
+  <div class="landing-card">
+    <div class="landing-ornament">Wedding Invitation · دعوة زفاف</div>
+    <div class="landing-names rakkas-name">يوسف &amp; حبيبة</div>
+    <div class="landing-subtitle">
+      يشرفانكم بدعوتكم لحضور<br>حفل زفافهما المبارك
+    </div>
+    <div class="landing-divider">
+      <span class="landing-divider-icon">✦</span>
+    </div>
+    <button class="open-btn" id="open-btn">✦ افتح الدعوة ✦</button>
+  </div>
+</div>
+
+<!-- ===== AUDIO ===== -->
+<audio id="bg-music" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romanticsnight.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main-content">
+
+  <!-- Header -->
+  <div class="site-header reveal">
+    <div class="header-names rakkas-name">يوسف ✦ حبيبة</div>
+    <div class="header-date">٢٢ يونيو ٢٠٢٦</div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- COUPLE -->
+  <section id="couple">
+    <div class="section-label reveal">The Couple · العروسان</div>
+    <div class="couple-photo-wrap reveal reveal-delay-1" id="photo-wrap">
+      <div class="photo-glow"></div>
+      <div class="couple-photo-frame" id="photo-frame">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=760&q=80&fit=crop" alt="صورة العروسين" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <!-- Tags -->
+      <div class="ig-tag" id="tag-groom">
+        <span class="ig-tag-dot"></span> @youssif2_x2
+      </div>
+      <div class="ig-tag" id="tag-bride">
+        <span class="ig-tag-dot"></span> @Habibi_1y
+      </div>
+    </div>
+    <div class="click-hint reveal reveal-delay-2">✦ انقر على الصورة لمعرفة حسابات التواصل ✦</div>
+    <div class="couple-name reveal reveal-delay-3">يوسف و حبيبة</div>
+    <div class="couple-date reveal reveal-delay-4">٢٢ يونيو ٢٠٢٦ — السنة المباركة</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- COUNTDOWN -->
+  <section id="countdown">
+    <div class="section-label reveal">Countdown · العد التنازلي</div>
+    <div class="section-title reveal reveal-delay-1">الوقت المتبقي</div>
+    <div class="gold-divider reveal reveal-delay-2"></div>
+    <div class="countdown-grid reveal reveal-delay-2">
+      <div class="count-card">
+        <div class="count-num" id="cd-days">00</div>
+        <div class="count-label">يوم</div>
+      </div>
+      <div class="count-card">
+        <div class="count-num" id="cd-hours">00</div>
+        <div class="count-label">ساعة</div>
+      </div>
+      <div class="count-card">
+        <div class="count-num" id="cd-mins">00</div>
+        <div class="count-label">دقيقة</div>
+      </div>
+      <div class="count-card">
+        <div class="count-num" id="cd-secs">00</div>
+        <div class="count-label">ثانية</div>
+      </div>
+    </div>
+    <button class="notif-btn reveal reveal-delay-3" id="notif-btn">
+      <span class="notif-bell-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </span>
+      <span class="notif-btn-text">تذكيرني قبل الزفاف</span>
+    </button>
+    <div class="notif-subtitle reveal reveal-delay-4">اقبل إذن الإشعارات للتذكير بميعاد الزفاف</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- STORY -->
+  <section id="story">
+    <div class="section-label reveal">Our Story · قصتنا</div>
+    <div class="section-title reveal reveal-delay-1">قصتنا</div>
+    <div class="gold-divider reveal reveal-delay-2"></div>
+    <div class="story-card reveal reveal-delay-3">
+      <!-- Scratch canvas overlay -->
+      <canvas id="scratch-canvas"></canvas>
+      <!-- Actual story text underneath -->
+      <p class="story-text" id="story-text">
+        في لحظةٍ هادئة من لحظات القدر، التقت روحان كانتا تبحثان عن بعضهما دون أن تعلما... 
+        بدأت القصة بنظرة، وتعمّقت بكلمة، وترسّخت بمشاعر صادقة لا تُقاوَم. 
+        خطت خطواتٍ بثقة نحو المستقبل، يداً في يد، قلباً لقلب. 
+        واليوم، بعد رحلة من المحبة والصدق والوعود الصادقة، يقفان معاً ليقولا للدنيا: 
+        "وجدنا في بعضنا ما كنّا نبحث عنه." 
+        ليبدأ فصلٌ جديد — أجمل فصول الحياة.
+      </p>
+    </div>
+    <div class="scratch-hint reveal reveal-delay-4">امسح الشاشة بإيدك عشان تشوف قصتنا</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- EVENTS -->
+  <section id="events">
+    <div class="section-label events-title reveal">Event Details · تفاصيل الحفل</div>
+    <div class="section-title events-title reveal reveal-delay-1">تفاصيل مواعيد الحفل</div>
+    <div class="gold-divider reveal reveal-delay-2"></div>
+    <div class="events-grid">
+      <!-- Day 1 -->
+      <div class="event-card reveal reveal-delay-2">
+        <span class="event-day-badge">اليوم الأول</span>
+        <h3>حفل الملكة</h3>
+        <div class="event-detail">
+          <div class="event-icon">📅</div>
+          <div class="event-detail-text">
+            <strong>التاريخ</strong>
+            الاثنين ٢٢ يونيو ٢٠٢٦
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-icon">🕖</div>
+          <div class="event-detail-text">
+            <strong>الوقت</strong>
+            من الساعة ٦:٠٠ مساءً
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-icon">📍</div>
+          <div class="event-detail-text">
+            <strong>المكان</strong>
+            قاعة الأندلس للأفراح — القاهرة
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-icon">✨</div>
+          <div class="event-detail-text">
+            <strong>التفاصيل</strong>
+            حفل زفاف رسمي مع العشاء والرقص
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.5!2d31.2357!3d30.0444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAyJzM5LjgiTiAzMcKwMTQnMDguNiJF!5e0!3m2!1sen!2seg!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <a class="map-btn" href="https://maps.google.com" target="_blank">📍 افتح في خرائط جوجل</a>
+      </div>
+      <!-- Day 2 -->
+      <div class="event-card reveal reveal-delay-3">
+        <span class="event-day-badge">اليوم الثاني</span>
+        <h3>العُرس الكبير</h3>
+        <div class="event-detail">
+          <div class="event-icon">📅</div>
+          <div class="event-detail-text">
+            <strong>التاريخ</strong>
+            الثلاثاء ٢٣ يونيو ٢٠٢٦
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-icon">🕗</div>
+          <div class="event-detail-text">
+            <strong>الوقت</strong>
+            من الساعة ٧:٠٠ مساءً
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-icon">📍</div>
+          <div class="event-detail-text">
+            <strong>المكان</strong>
+            فندق سميراميس — القاهرة
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-icon">🥂</div>
+          <div class="event-detail-text">
+            <strong>التفاصيل</strong>
+            استقبال الضيوف وحفل عشاء فاخر
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.5!2d31.2330!3d30.0550!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAzJzE4LjAiTiAzMcKwMTMnNTguOCJF!5e0!3m2!1sen!2seg!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <a class="map-btn" href="https://maps.google.com" target="_blank">📍 افتح في خرائط جوجل</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="section-label reveal">Gallery · معرض الصور</div>
+    <div class="section-title reveal reveal-delay-1">لحظات لا تُنسى</div>
+    <div class="gold-divider reveal reveal-delay-2"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80&fit=crop" alt="لحظة رومانسية" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&q=80&fit=crop" alt="ورود العرس" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600&q=80&fit=crop" alt="لحظة الزفاف" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="gallery-item reveal reveal-delay-4">
+        <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=600&q=80&fit=crop" alt="حلقات الزفاف" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- MESSAGE -->
+  <section id="message">
+    <div class="section-label reveal">Congratulations · تهنئة</div>
+    <div class="section-title reveal reveal-delay-1">اكتبلنا تهنئة</div>
+    <div class="gold-divider reveal reveal-delay-2"></div>
+    <div class="message-card reveal reveal-delay-3">
+      <form id="congrats-form" onsubmit="sendMessage(event)">
+        <div class="form-group">
+          <label class="form-label">الاسم</label>
+          <input class="form-input" type="text" id="msg-name" placeholder="اسمك الكريم" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">رسالة التهنئة</label>
+          <textarea class="form-textarea" id="msg-text" placeholder="اكتب تهنئتك هنا..." required></textarea>
+        </div>
+        <button class="submit-btn" type="submit" id="submit-btn">✦ أرسل تهنئتك ✦</button>
+      </form>
+      <!-- Feedback area: shown after send attempt (success or error) -->
+      <div class="form-feedback" id="form-feedback"></div>
+      <!-- Legacy hidden element kept for safety -->
+      <div class="success-msg" id="success-msg"></div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- QR CODE -->
+  <section id="qrcode">
+    <div class="section-label reveal">QR Code · رمز المشاركة</div>
+    <div class="section-title reveal reveal-delay-1">شارك الدعوة</div>
+    <div class="gold-divider reveal reveal-delay-2"></div>
+    <div class="qr-card reveal reveal-delay-3">
+      <canvas id="qr-canvas" width="200" height="200"></canvas>
+      <div class="qr-label">امسح الرمز لفتح الدعوة</div>
+      <button class="download-qr-btn" id="download-qr">⬇ تحميل رمز الدعوة</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-names rakkas-name">يوسف ✦ حبيبة</div>
+    <div>بكل الحب والامتنان نرحب بكم في أجمل أيامنا ✦ ٢٢ يونيو ٢٠٢٦</div>
+  </footer>
+
+</div><!-- /main-content -->
+
+<!-- Music Button - Glassmorphism -->
+<div id="music-btn" title="تشغيل/إيقاف الموسيقى">
+  <div class="music-btn-ring"></div>
+  <div class="music-btn-inner">
+    <svg id="music-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="5,3 19,12 5,21"/>
+    </svg>
+    <svg id="music-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+      <rect x="6" y="4" width="4" height="16" rx="1"/>
+      <rect x="14" y="4" width="4" height="16" rx="1"/>
+    </svg>
+  </div>
+  <div class="music-bars" id="music-bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- Scroll Top -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ======= PETALS ======= */
+const petalContainer = document.getElementById('petal-container');
+for(let i=0;i<28;i++){
+  const p = document.createElement('div');
+  p.className = 'petal';
+  const size = Math.random()*8+4;
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    animation-duration:${Math.random()*8+6}s;
+    animation-delay:${Math.random()*8}s;
+    opacity:0;
+    background: hsl(${Math.random()*20+340},${Math.random()*20+40}%,${Math.random()*15+75}%);
+  `;
+  petalContainer.appendChild(p);
+}
+
+/* ======= FULL RESET ON REFRESH ======= */
+/*
+ * IMPORTANT: Every page refresh/reload starts from the landing screen.
+ * sessionStorage is used (NOT localStorage) so it clears on every new
+ * browser session or refresh — guaranteeing a clean start every time.
+ *
+ * What gets reset:
+ *  ✓ Landing screen always shown on load
+ *  ✓ Main content hidden until button click
+ *  ✓ Music stopped and reset to paused state
+ *  ✓ Music button hidden
+ *  ✓ All scroll animations (.reveal) reset to invisible
+ *  ✓ Scratch card overlay re-drawn fresh
+ *  ✓ Instagram tag animations reset
+ *  ✓ Countdown re-initializes cleanly
+ */
+
+// Ensure the landing is always shown on load — never skip it
+(function enforceResetOnLoad(){
+  // Remove any stale "opened" state
+  sessionStorage.removeItem('invitationOpened');
+
+  // Make sure landing is visible and main-content is hidden
+  const landingEl = document.getElementById('landing');
+  const mainEl    = document.getElementById('main-content');
+  if(landingEl) {
+    landingEl.classList.remove('hidden');
+    landingEl.style.opacity  = '';
+    landingEl.style.visibility = '';
+  }
+  if(mainEl) {
+    mainEl.classList.remove('visible');
+  }
+
+  // Reset music button visibility
+  const musicBtnEl = document.getElementById('music-btn');
+  if(musicBtnEl) {
+    musicBtnEl.classList.remove('show', 'playing');
+  }
+
+  // Ensure audio is paused and reset
+  const audioEl = document.getElementById('bg-music');
+  if(audioEl) {
+    audioEl.pause();
+    audioEl.currentTime = 0;
+  }
+
+  // Reset all reveal elements — remove 'visible' so animations replay
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+  });
+
+  // Reset Instagram tags
+  const tagG = document.getElementById('tag-groom');
+  const tagB = document.getElementById('tag-bride');
+  if(tagG) tagG.classList.remove('visible');
+  if(tagB) tagB.classList.remove('visible');
+
+  // Reset music play/pause icons
+  const iconPlay  = document.getElementById('music-icon-play');
+  const iconPause = document.getElementById('music-icon-pause');
+  if(iconPlay)  iconPlay.style.display  = 'block';
+  if(iconPause) iconPause.style.display = 'none';
+})();
+
+/* ======= OPEN BUTTON ======= */
+const openBtn = document.getElementById('open-btn');
+const landing = document.getElementById('landing');
+const mainContent = document.getElementById('main-content');
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-btn');
+
+openBtn.addEventListener('click', () => {
+  landing.classList.add('hidden');
+  mainContent.classList.add('visible');
+  musicBtn.classList.add('show');
+  musicBtn.classList.add('playing');
+  document.getElementById('music-icon-play').style.display = 'none';
+  document.getElementById('music-icon-pause').style.display = 'block';
+  music.volume = 0;
+  music.play().catch(()=>{});
+  let vol = 0;
+  const fadeIn = setInterval(()=>{
+    vol = Math.min(vol + 0.02, 0.45);
+    music.volume = vol;
+    if(vol >= 0.45) clearInterval(fadeIn);
+  }, 120);
+
+  // Initialize scroll reveal after content is shown
+  setTimeout(initRevealObserver, 100);
+});
+
+/* ======= MUSIC BUTTON ======= */
+let musicPlaying = true;
+musicBtn.addEventListener('click', ()=>{
+  if(musicPlaying){
+    music.pause();
+    musicBtn.classList.remove('playing');
+    document.getElementById('music-icon-play').style.display = 'block';
+    document.getElementById('music-icon-pause').style.display = 'none';
+  } else {
+    music.play().catch(()=>{});
+    musicBtn.classList.add('playing');
+    document.getElementById('music-icon-play').style.display = 'none';
+    document.getElementById('music-icon-pause').style.display = 'block';
+  }
+  musicPlaying = !musicPlaying;
+});
+
+/* ======= SCROLL REVEAL (initialized after open) ======= */
+/*
+ * NOTE: Reveal elements are reset on every page load (see enforceResetOnLoad above).
+ * The IntersectionObserver is created fresh each time so no stale state
+ * from a previous session can cause broken visibility states.
+ */
+let revealObserver;
+
+function initRevealObserver(){
+  // Disconnect any existing observer first
+  if(revealObserver) revealObserver.disconnect();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+}
+
+/* ======= SCROLL TOP ======= */
+const scrollTopBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', ()=>{
+  scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+});
+
+/* ======= COUNTDOWN ======= */
+function updateCountdown(){
+  const target = new Date('2026-06-22T18:00:00');
+  const now = new Date();
+  const diff = target - now;
+
+  if(diff <= 0){
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    return;
+  }
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000) / 60000);
+  const secs  = Math.floor((diff % 60000) / 1000);
+
+  const pad = n => String(n).padStart(2,'0');
+
+  const updateEl = (id, val) => {
+    const el = document.getElementById(id);
+    if(el.textContent !== pad(val)){
+      el.classList.remove('flip');
+      void el.offsetWidth;
+      el.classList.add('flip');
+      el.textContent = pad(val);
+    }
+  };
+
+  updateEl('cd-days', days);
+  updateEl('cd-hours', hours);
+  updateEl('cd-mins', mins);
+  updateEl('cd-secs', secs);
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ======= NOTIFICATIONS — Every 15 hours until wedding date ======= */
+document.getElementById('notif-btn').addEventListener('click', async ()=>{
+  const btn = document.getElementById('notif-btn');
+
+  if(!('Notification' in window)){
+    btn.querySelector('.notif-btn-text').textContent = 'متصفحك لا يدعم الإشعارات';
+    return;
+  }
+
+  // Already granted — re-confirm and re-schedule
+  if(Notification.permission === 'granted'){
+    btn.querySelector('.notif-btn-text').textContent = '✓ التذكير مفعّل';
+    btn.classList.add('granted');
+    btn.style.background = 'linear-gradient(135deg,var(--champagne-light),var(--champagne))';
+    btn.style.color = '#fff';
+    btn.style.borderColor = 'var(--champagne)';
+    scheduleWeddingReminders();
+    return;
+  }
+
+  // Already denied
+  if(Notification.permission === 'denied'){
+    btn.querySelector('.notif-btn-text').textContent = 'تم رفض الإذن من قبل';
+    return;
+  }
+
+  // Request permission
+  btn.querySelector('.notif-btn-text').textContent = 'جارٍ طلب الإذن...';
+
+  try {
+    const perm = await Notification.requestPermission();
+    if(perm === 'granted'){
+      btn.classList.add('granted');
+      btn.querySelector('.notif-btn-text').textContent = '✓ تم تفعيل التذكير';
+      btn.style.background = 'linear-gradient(135deg,var(--champagne-light),var(--champagne))';
+      btn.style.color = '#fff';
+      btn.style.borderColor = 'var(--champagne)';
+      btn.style.boxShadow = '0 8px 28px rgba(180,140,80,0.3)';
+
+      // Immediate confirmation notification
+      new Notification('💍 تذكير زفاف يوسف وحبيبة', {
+        body: 'تم تفعيل التذكير! سنذكرك كل ١٥ ساعة حتى موعد الزفاف 🌸',
+      });
+
+      // Start repeating 15-hour reminders
+      scheduleWeddingReminders();
+
+    } else {
+      btn.querySelector('.notif-btn-text').textContent = 'لم يتم قبول الإذن';
+    }
+  } catch(err){
+    btn.querySelector('.notif-btn-text').textContent = 'تذكيرني قبل الزفاف';
+    console.warn('Notification error:', err);
+  }
+});
+
+/*
+ * scheduleWeddingReminders()
+ * ─────────────────────────────────────────────────────────────
+ * Sends a browser notification every 15 hours until the wedding date.
+ * Uses setInterval with 15 * 60 * 60 * 1000 ms (= 54,000,000 ms).
+ * Automatically stops once the wedding date has passed.
+ * NOTE: Notifications only fire while the browser tab is open.
+ *       For background reminders, a Service Worker would be needed.
+ * ─────────────────────────────────────────────────────────────
+ */
+function scheduleWeddingReminders(){
+  const WEDDING_DATE = new Date('2026-06-22T18:00:00');
+  const INTERVAL_MS  = 15 * 60 * 60 * 1000; // 15 hours in milliseconds
+
+  // Clear any previous interval stored on the window to avoid duplicates
+  if(window._weddingReminderInterval){
+    clearInterval(window._weddingReminderInterval);
+  }
+
+  window._weddingReminderInterval = setInterval(()=>{
+    const now      = new Date();
+    const diff     = WEDDING_DATE - now;
+    const daysLeft = Math.ceil(diff / 86400000);
+
+    // Stop when wedding has passed
+    if(diff <= 0){
+      clearInterval(window._weddingReminderInterval);
+      return;
+    }
+
+    if(Notification.permission === 'granted'){
+      new Notification(`💍 باقي ${daysLeft} يوم على زفاف يوسف وحبيبة`, {
+        body: 'لا تنس! احجز ملابسك وجهّز هديتك 🌸 ٢٢ يونيو ٢٠٢٦',
+      });
+    } else {
+      // Permission was revoked; stop interval
+      clearInterval(window._weddingReminderInterval);
+    }
+  }, INTERVAL_MS);
+}
+
+
+/* ======= SCRATCH CARD STORY ======= */
+/*
+ * The scratch canvas is reset every page load because:
+ * - enforceResetOnLoad() runs before this code
+ * - isReady is always false at start
+ * - scratchedPercent is always 0 at start
+ * - The canvas is always visible (no display:none set initially)
+ * This guarantees a fresh scratchable overlay every visit.
+ */
+(function initScratch(){
+  const card = document.querySelector('.story-card');
+  const canvas = document.getElementById('scratch-canvas');
+  if(!canvas || !card) return;
+
+  // Always reset these on load
+  canvas.style.opacity = '1';
+  canvas.style.display = 'block';
+
+  let isReady = false;
+  let isScratching = false;
+  let scratchedPercent = 0;
+  let ctx;
+
+  function setupCanvas(){
+    const rect = card.getBoundingClientRect();
+    canvas.width  = rect.width;
+    canvas.height = rect.height;
+    ctx = canvas.getContext('2d');
+
+    // Draw romantic scratch overlay
+    const grad = ctx.createLinearGradient(0,0,canvas.width, canvas.height);
+    grad.addColorStop(0,  '#f0d8d0');
+    grad.addColorStop(0.3,'#ede0cc');
+    grad.addColorStop(0.7,'#e8c4b8');
+    grad.addColorStop(1,  '#f5ede0');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Decorative text on overlay
+    ctx.fillStyle = 'rgba(158,124,74,0.25)';
+    ctx.font = `bold ${Math.min(canvas.width*0.08,36)}px 'Amiri', serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✦ امسح لتكشف قصتنا ✦', canvas.width/2, canvas.height/2);
+
+    // Sparkle dots
+    for(let i=0;i<40;i++){
+      ctx.beginPath();
+      ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*3+1, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(201,169,110,${Math.random()*0.3+0.1})`;
+      ctx.fill();
+    }
+
+    ctx.globalCompositeOperation = 'destination-out';
+    isReady = true;
+  }
+
+  // Init when card enters viewport
+  const scratchObserver = new IntersectionObserver((entries)=>{
+    if(entries[0].isIntersecting && !isReady){
+      setTimeout(setupCanvas, 300);
+      scratchObserver.disconnect();
+    }
+  }, { threshold: 0.4 });
+  scratchObserver.observe(card);
+
+  // Also resize
+  window.addEventListener('resize', ()=>{
+    if(isReady) setupCanvas();
+  });
+
+  function scratch(x, y){
+    if(!ctx || !isReady) return;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    const r = Math.min(canvas.width, canvas.height) * 0.08;
+    const grad = ctx.createRadialGradient(x,y,0,x,y,r);
+    grad.addColorStop(0,'rgba(0,0,0,1)');
+    grad.addColorStop(0.5,'rgba(0,0,0,0.85)');
+    grad.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fill();
+    checkReveal();
+  }
+
+  function checkReveal(){
+    if(scratchedPercent >= 60) return;
+    const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+    let cleared = 0;
+    for(let i=3;i<imgData.data.length;i+=4){
+      if(imgData.data[i] < 128) cleared++;
+    }
+    scratchedPercent = (cleared / (canvas.width*canvas.height))*100;
+    if(scratchedPercent >= 60){
+      canvas.style.opacity = '0';
+      setTimeout(()=>{ canvas.style.display='none'; },700);
+    }
+  }
+
+  function getPos(e, el){
+    const rect = el.getBoundingClientRect();
+    const src = e.touches ? e.touches[0] : e;
+    return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+  }
+
+  canvas.addEventListener('mousedown', e=>{ isScratching=true; const p=getPos(e,canvas); scratch(p.x,p.y); });
+  canvas.addEventListener('mousemove', e=>{ if(!isScratching) return; const p=getPos(e,canvas); scratch(p.x,p.y); });
+  canvas.addEventListener('mouseup', ()=> isScratching=false);
+  canvas.addEventListener('mouseleave', ()=> isScratching=false);
+
+  canvas.addEventListener('touchstart', e=>{ e.preventDefault(); isScratching=true; const p=getPos(e,canvas); scratch(p.x,p.y); }, {passive:false});
+  canvas.addEventListener('touchmove',  e=>{ e.preventDefault(); if(!isScratching) return; const p=getPos(e,canvas); scratch(p.x,p.y); }, {passive:false});
+  canvas.addEventListener('touchend',   ()=> isScratching=false);
+})();
+
+/* ======= INSTAGRAM TAGS ======= */
+const photoFrame = document.getElementById('photo-frame');
+const tagGroom = document.getElementById('tag-groom');
+const tagBride  = document.getElementById('tag-bride');
+
+let tagTimeout;
+
+photoFrame.addEventListener('click', (e)=>{
+  const rect = photoFrame.getBoundingClientRect();
+  const relY = (e.clientY - rect.top) / rect.height;
+
+  clearTimeout(tagTimeout);
+
+  // Hide both first
+  tagGroom.classList.remove('visible');
+  tagBride.classList.remove('visible');
+
+  setTimeout(()=>{
+    if(relY < 0.5){
+      tagGroom.classList.add('visible');
+    } else {
+      tagBride.classList.add('visible');
+    }
+    tagTimeout = setTimeout(()=>{
+      tagGroom.classList.remove('visible');
+      tagBride.classList.remove('visible');
+    }, 2800);
+  }, 60);
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   EMAIL SENDING — EMAILJS CONFIGURATION
+   ═══════════════════════════════════════════════════════════════════
+
+   HOW TO SET UP EMAILJS (free, no backend needed):
+   ─────────────────────────────────────────────────
+   1. Go to https://www.emailjs.com and create a free account.
+
+   2. ADD AN EMAIL SERVICE:
+      • Dashboard → Email Services → Add New Service
+      • Choose Gmail (or any provider)
+      • Connect your Gmail account (e.g. youssif.wedding@gmail.com)
+      • Note down the SERVICE ID (e.g. "service_abc123")
+
+   3. CREATE AN EMAIL TEMPLATE:
+      • Dashboard → Email Templates → Create New Template
+      • Set "To Email" → your recipient address (e.g. youssif.wedding@gmail.com)
+      • Template body example:
+            From: {{from_name}}
+            Message: {{message}}
+      • Note down the TEMPLATE ID (e.g. "template_xyz789")
+
+   4. GET YOUR PUBLIC KEY:
+      • Dashboard → Account → General → Public Key
+      • Copy the key (e.g. "user_XXXXXXXXXXXXXXXXX")
+
+   5. PASTE YOUR KEYS IN THE THREE VARIABLES BELOW:
+   ─────────────────────────────────────────────────
+   RECIPIENT EMAIL is set inside your EmailJS template on the dashboard.
+   You do NOT need to put the recipient email in this code.
+   ═══════════════════════════════════════════════════════════════════ */
+
+(function initEmailJS(){
+  // ┌─────────────────────────────────────────────────────────────┐
+  // │  STEP 1 — Replace with your EmailJS Public Key             │
+  // │  Found at: emailjs.com → Account → General → Public Key    │
+  // └─────────────────────────────────────────────────────────────┘
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY_HERE';
+
+  // ┌─────────────────────────────────────────────────────────────┐
+  // │  STEP 2 — Replace with your EmailJS Service ID             │
+  // │  Found at: emailjs.com → Email Services → your service     │
+  // └─────────────────────────────────────────────────────────────┘
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID_HERE';
+
+  // ┌─────────────────────────────────────────────────────────────┐
+  // │  STEP 3 — Replace with your EmailJS Template ID            │
+  // │  Found at: emailjs.com → Email Templates → your template   │
+  // └─────────────────────────────────────────────────────────────┘
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+
+  // Initialize EmailJS with your public key
+  if(typeof emailjs !== 'undefined'){
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  // Expose config globally for sendMessage()
+  window._ejsConfig = {
+    serviceId:  EMAILJS_SERVICE_ID,
+    templateId: EMAILJS_TEMPLATE_ID,
+    configured: (
+      EMAILJS_PUBLIC_KEY  !== 'YOUR_PUBLIC_KEY_HERE' &&
+      EMAILJS_SERVICE_ID  !== 'YOUR_SERVICE_ID_HERE' &&
+      EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE'
+    )
+  };
+})();
+
+/* ─── HELPER: show feedback message elegantly ─── */
+function showFeedback(type, icon, text){
+  const el = document.getElementById('form-feedback');
+  el.className = 'form-feedback ' + type;
+  el.innerHTML = `<span class="feedback-icon">${icon}</span>${text}`;
+  el.style.display = 'block';
+  // Auto-hide success after 7 seconds; keep error visible until next attempt
+  if(type === 'success'){
+    setTimeout(()=>{
+      el.style.animation = 'none';
+      el.style.opacity   = '0';
+      el.style.transition = 'opacity 0.6s ease';
+      setTimeout(()=>{ el.style.display = 'none'; el.style.opacity = ''; el.style.transition = ''; }, 600);
+    }, 7000);
+  }
+}
+
+/* ─── MAIN SEND FUNCTION ─── */
+async function sendMessage(e){
+  e.preventDefault();
+
+  const nameVal   = document.getElementById('msg-name').value.trim();
+  const textVal   = document.getElementById('msg-text').value.trim();
+  const submitBtn = document.getElementById('submit-btn');
+  const feedback  = document.getElementById('form-feedback');
+
+  // Hide any previous feedback
+  feedback.style.display = 'none';
+  feedback.className = 'form-feedback';
+
+  // ── Loading state ──
+  submitBtn.classList.add('sending');
+  submitBtn.textContent = '⏳ جارٍ الإرسال...';
+
+  // ── Guard: EmailJS not configured yet ──
+  if(!window._ejsConfig || !window._ejsConfig.configured){
+    submitBtn.classList.remove('sending');
+    submitBtn.textContent = '✦ أرسل تهنئتك ✦';
+    showFeedback('error', '⚙️',
+      'لم يتم ربط خدمة الإيميل بعد.<br>' +
+      '<small style="opacity:0.75;font-size:0.85rem">يرجى إضافة مفاتيح EmailJS في كود الصفحة أولاً.</small>'
+    );
+    return;
+  }
+
+  try {
+    // ── Send via EmailJS ──
+    // Template variables must match your EmailJS template placeholders:
+    //   {{from_name}}  → sender's name
+    //   {{message}}    → their congratulation text
+    //   {{reply_to}}   → optional, set to empty string
+    await emailjs.send(
+      window._ejsConfig.serviceId,
+      window._ejsConfig.templateId,
+      {
+        from_name: nameVal,
+        message:   textVal,
+        reply_to:  '',
+      }
+    );
+
+    // ── SUCCESS ──
+    submitBtn.classList.remove('sending');
+    submitBtn.textContent = '✦ أرسل تهنئتك ✦';
+    document.getElementById('congrats-form').reset();
+    showFeedback('success', '🌸',
+      'شكراً جزيلاً على تهنئتك الرقيقة<br>' +
+      '<small style="opacity:0.75;font-size:0.9rem">وصلت رسالتك بكل حبٍّ وامتنان ✦</small>'
+    );
+
+  } catch(err){
+    // ── ERROR ──
+    console.error('EmailJS error:', err);
+    submitBtn.classList.remove('sending');
+    submitBtn.textContent = '✦ أرسل تهنئتك ✦';
+    showFeedback('error', '💌',
+      'لم تصل الرسالة هذه المرة، حاول مرة أخرى<br>' +
+      '<small style="opacity:0.7;font-size:0.85rem">تأكد من اتصالك بالإنترنت وأعد المحاولة</small>'
+    );
+  }
+}
+
+
+/* ======= QR CODE (pure JS, no library) ======= */
+function drawQR(){
+  const canvas = document.getElementById('qr-canvas');
+  const ctx = canvas.getContext('2d');
+  const size = 200;
+  canvas.width = size;
+  canvas.height = size;
+
+  // Background
+  ctx.fillStyle = '#fdfaf6';
+  ctx.fillRect(0,0,size,size);
+
+  // Simple elegant placeholder QR pattern
+  ctx.fillStyle = '#3a2d22';
+
+  // Draw finder patterns
+  const drawFinder = (x,y)=>{
+    ctx.fillRect(x,y,21,21);
+    ctx.fillStyle='#fdfaf6';
+    ctx.fillRect(x+3,y+3,15,15);
+    ctx.fillStyle='#3a2d22';
+    ctx.fillRect(x+6,y+6,9,9);
+    ctx.fillStyle='#3a2d22';
+  };
+
+  const scale = size/21;
+  ctx.save();
+  ctx.scale(scale,scale);
+
+  // Top-left finder
+  drawFinder(0,0);
+  // Top-right finder
+  drawFinder(14,0);
+  // Bottom-left finder
+  drawFinder(0,14);
+
+  // Random data dots (simplified visual)
+  const data = [
+    [7,2],[8,2],[9,2],[10,2],[11,2],
+    [7,4],[9,4],[11,4],
+    [7,6],[8,6],[9,6],[10,6],[11,6],
+    [2,7],[4,7],[7,7],[9,7],[11,7],[13,7],[15,7],[17,7],[19,7],
+    [3,8],[5,8],[7,8],[12,8],[14,8],[16,8],[18,8],
+    [2,9],[4,9],[6,9],[8,9],[10,9],[14,9],[16,9],[18,9],[20,9],
+    [3,10],[5,10],[9,10],[11,10],[13,10],[15,10],[19,10],
+    [2,11],[4,11],[8,11],[10,11],[14,11],[16,11],[18,11],[20,11],
+    [7,12],[9,12],[11,12],[13,12],[17,12],[19,12],
+    [7,14],[9,14],[11,14],[12,14],[14,14],[16,14],[18,14],[20,14],
+    [8,15],[10,15],[13,15],[15,15],[17,15],[19,15],
+    [7,16],[9,16],[11,16],[14,16],[16,16],[20,16],
+    [8,17],[10,17],[12,17],[14,17],[18,17],
+    [7,18],[9,18],[11,18],[13,18],[15,18],[17,18],[19,18],
+    [8,19],[10,19],[14,19],[16,19],[20,19],
+    [7,20],[9,20],[11,20],[12,20],[14,20],[18,20],[20,20],
+  ];
+
+  ctx.fillStyle = '#c9a96e';
+  data.forEach(([x,y])=>{
+    ctx.fillRect(x,y,1,1);
+  });
+
+  ctx.restore();
+
+  // Center logo
+  ctx.fillStyle = 'rgba(253,250,246,0.95)';
+  const cx=size/2, cy=size/2, r=20;
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle = '#c9a96e';
+  ctx.font = 'bold 16px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('♥', cx, cy);
+}
+
+drawQR();
+
+document.getElementById('download-qr').addEventListener('click',()=>{
+  const canvas = document.getElementById('qr-canvas');
+  const link = document.createElement('a');
+  link.download = 'wedding-invitation-qr.png';
+  link.href = canvas.toDataURL();
+  link.click();
+});
+
+</script>
+</body>
+</html>
