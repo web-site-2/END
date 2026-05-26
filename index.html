@@ -1937,33 +1937,33 @@ photoFrame.addEventListener('click', (e)=>{
   // │  STEP 1 — Replace with your EmailJS Public Key             │
   // │  Found at: emailjs.com → Account → General → Public Key    │
   // └─────────────────────────────────────────────────────────────┘
-  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY_HERE';
+  const EMAILJS_PUBLIC_KEY  = 'DHm-vajclMIV-chNc';
 
   // ┌─────────────────────────────────────────────────────────────┐
   // │  STEP 2 — Replace with your EmailJS Service ID             │
   // │  Found at: emailjs.com → Email Services → your service     │
   // └─────────────────────────────────────────────────────────────┘
-  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID_HERE';
+  const EMAILJS_SERVICE_ID  = 'service_m88v146';
 
   // ┌─────────────────────────────────────────────────────────────┐
   // │  STEP 3 — Replace with your EmailJS Template ID            │
   // │  Found at: emailjs.com → Email Templates → your template   │
   // └─────────────────────────────────────────────────────────────┘
-  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+  const EMAILJS_TEMPLATE_ID = 'template_35b08pf';
 
   // Initialize EmailJS with your public key
   if(typeof emailjs !== 'undefined'){
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    emailjs.init({ publicKey: DHm-vajclMIV-chNc });
   }
 
   // Expose config globally for sendMessage()
   window._ejsConfig = {
-    serviceId:  EMAILJS_SERVICE_ID,
-    templateId: EMAILJS_TEMPLATE_ID,
+    serviceId:  service_m88v146,
+    templateId: template_35b08pf,
     configured: (
-      EMAILJS_PUBLIC_KEY  !== 'YOUR_PUBLIC_KEY_HERE' &&
-      EMAILJS_SERVICE_ID  !== 'YOUR_SERVICE_ID_HERE' &&
-      EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE'
+      EMAILJS_PUBLIC_KEY  !== 'DHm-vajclMIV-chNc' &&
+      EMAILJS_SERVICE_ID  !== 'service_m88v146' &&
+      EMAILJS_TEMPLATE_ID !== 'template_35b08pf'
     )
   };
 })();
