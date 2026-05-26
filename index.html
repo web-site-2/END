@@ -2142,10 +2142,47 @@ document.getElementById('download-qr').addEventListener('click',()=>{
 });
 
 </script>
-     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+     <script type="module">
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
-<script src="firebase-config.js"></script>
+import {
+  getMessaging,
+  getToken
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-messaging.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBhw9-b7a3NZJXG8jxEfVC8ZMw44eMc27A",
+  authDomain: "new-1-6d173.firebaseapp.com",
+  projectId: "new-1-6d173",
+  storageBucket: "new-1-6d173.firebasestorage.app",
+  messagingSenderId: "102791475836",
+  appId: "1:102791475836:web:1365479a319eeed9514ff9",
+  measurementId: "G-24TW413KHM"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const messaging = getMessaging(app);
+
+Notification.requestPermission().then(async (permission) => {
+
+  if (permission === "granted") {
+
+    const token = await getToken(messaging, {
+      vapidKey: "حط_ال_VAPID_KEY_هنا"
+    });
+
+    console.log("TOKEN:", token);
+
+  } else {
+
+    console.log("تم رفض الإشعارات");
+
+  }
+
+});
+
+</script>
 </body>
 </html>
